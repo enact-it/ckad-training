@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: stresser
+  name: stresser
+  namespace: limited
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: stresser
+  template:
+    metadata:
+      labels:
+        run: stresser
+    spec:
+      containers:
+        - image: vish/stress
+          name: stresser
+          args:
+            - -cpus
+            - "2"
+            - -mem-total
+            - "1000Mi"
+            - -mem-alloc-size
+            - "100Mi"
+            - -mem-alloc-sleep
+            - "5s"
