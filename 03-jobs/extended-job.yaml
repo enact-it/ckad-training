@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: extended-job
+spec:
+  parallelism: 2
+  completions: 5
+  template:
+    spec:
+      containers:
+        - image: busybox
+          name: basic-job
+          command:
+            - sh
+            - -c
+            - "/bin/sleep 10"
+          resources: {}
+      restartPolicy: Never

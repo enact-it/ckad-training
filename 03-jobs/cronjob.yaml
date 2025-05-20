@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob
+spec:
+  schedule: "*/2 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - image: busybox
+              name: basic-job
+              command:
+                - sh
+                - -c
+                - "/bin/sleep 10"
+              resources: {}
+          restartPolicy: Never

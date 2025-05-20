@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sample
+  name: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample
+  template:
+    metadata:
+      labels:
+        app: sample
+    spec:
+      containers:
+      - image: localhost:5001/sample
+        name: sample
+        readinessProbe:
+          exec:
+            command:
+            - cat
+            - ready.out
+          initialDelaySeconds: 5
+          periodSeconds: 10
