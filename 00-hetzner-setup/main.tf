@@ -2,7 +2,7 @@ provider "hcloud" {
   token = var.hcloud_token
 }
 
-data "http" "ip" {
+data "http" "ipv4" {
   url = "http://ipecho.net/plain"
 }
 
@@ -23,7 +23,7 @@ resource "hcloud_firewall" "fw" {
     direction = "in"
     protocol  = "icmp"
     source_ips = [
-      "${data.http.ip.response_body}/32"
+      "${data.http.ipv4.response_body}/32"
     ]
   }
 
@@ -32,7 +32,7 @@ resource "hcloud_firewall" "fw" {
     protocol  = "tcp"
     port      = "1-65535"
     source_ips = [
-      "${data.http.ip.response_body}/32"
+      "${data.http.ipv4.response_body}/32"
     ]
   }
 }
@@ -48,7 +48,7 @@ resource "hcloud_server" "lab" {
 
   name         = each.key
   image        = "ubuntu-24.04"
-  server_type  = "cax21"
+  server_type  = "cax11"
   location     = "fsn1"
   ssh_keys     = [each.key]
   firewall_ids = [hcloud_firewall.fw.id]
