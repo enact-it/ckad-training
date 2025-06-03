@@ -6,7 +6,6 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: ckad
-    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
   name: pod-log-reader
