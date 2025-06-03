@@ -1,0 +1,10 @@
+resources:
+  - ../../base
+
+namePrefix: dev-
+namespace: dev
+patches:
+  - target:
+      kind: Deployment
+      name: nginx
+    path: patch.yaml
