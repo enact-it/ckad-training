@@ -15,7 +15,7 @@ spec:
         run: stresser
     spec:
       containers:
-        - image: vish/stress
+        - image: ghcr.io/enact-it/stresser:latest
           name: stresser
           args:
             - -cpus
