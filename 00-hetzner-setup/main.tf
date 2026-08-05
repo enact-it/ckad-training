@@ -2,7 +2,7 @@ provider "hcloud" {
   token = var.hcloud_token
 }
 
-data "http" "ipv4" {
+data "http" "ip" {
   url = "http://ipecho.net/plain"
 }
 
@@ -60,5 +60,12 @@ output "lab_ips" {
   value = {
     for name, server in hcloud_server.lab :
     name => { "ipv4" = server.ipv4_address, "ipv6" = server.ipv6_address }
+  }
+}
+
+output "key_id" {
+  value = {
+    for name, key in hcloud_ssh_key.key :
+    name => key.id
   }
 }
