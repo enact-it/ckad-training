@@ -7,5 +7,6 @@ spec:
     storage: 3Mi
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /tmp/data

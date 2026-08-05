@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-test
+  template:
+    metadata:
+      labels:
+        app: pg-test
+    spec:
+      containers:
+        - name: pg-test
+          image: postgres
+          command:
+            - sh
+            - -c
+            - >
+              psql -h postgresql -U $POSTGRES_USER -d $POSTGRES_DB -c "SELECT NOW()" && sleep 600
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: POSTGRES_PASSWORD
+          envFrom:
+            - secretRef:
+                name: pg-secret

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgresql
+spec:
+  serviceName: postgresql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresql
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: pg-secret
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/
+      volumes:
+        - name: pgdata
+          emptyDir: {}

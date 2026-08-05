@@ -1,0 +1,21 @@
+resources:
+  - ../../base
+
+namePrefix: dev-
+namespace: dev
+patches:
+  - target:
+      kind: StatefulSet
+      name: postgresql
+    path: patch.yaml
+  - target:
+      kind: Deployment
+      name: pg-test
+    path: patch2.yaml
+
+secretGenerator:
+  - name: pg-secret
+    envs:
+      - .env.secret
+    options:
+      disableNameSuffixHash: true

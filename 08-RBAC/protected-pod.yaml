@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: protected-pod
+  namespace: protected
+  labels:
+    app: protected-pod
+spec:
+  containers:
+    - name: http-echo
+      image: hashicorp/http-echo
+      args:
+        - "-listen=:80"
+        - "-text=Welcome to the insecure traffic port"
+      ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+    - name: https-echo
+      image: hashicorp/http-echo
+      args:
+        - "-listen=:443"
+        - "-text=Welcome to the secure traffic port"
+      ports:
+        - name: https
+          containerPort: 443
+          protocol: TCP
