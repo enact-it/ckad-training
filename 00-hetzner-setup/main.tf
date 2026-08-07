@@ -47,8 +47,8 @@ resource "hcloud_server" "lab" {
   for_each = var.ssh_keys
 
   name         = each.key
-  image        = "ubuntu-24.04"
-  server_type  = "cax11"
+  image        = "ubuntu-26.04"
+  server_type  = "cx23"
   location     = "hel1"
   ssh_keys     = [each.key]
   firewall_ids = [hcloud_firewall.fw.id]
@@ -60,5 +60,12 @@ output "lab_ips" {
   value = {
     for name, server in hcloud_server.lab :
     name => { "ipv4" = server.ipv4_address, "ipv6" = server.ipv6_address }
+  }
+}
+
+output "key_id" {
+  value = {
+    for name, key in hcloud_ssh_key.key :
+    name => key.id
   }
 }
