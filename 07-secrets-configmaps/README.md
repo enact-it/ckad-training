@@ -83,7 +83,7 @@ Start with inspecting the changes that are made for adding the `Configmap` as `v
 apiVersion: v1
 kind: Pod
 metadata:
-  name: secret-pod
+  name: config-pod
 spec:
   containers:
     - name: nginx
@@ -116,7 +116,7 @@ spec:
 ```
 
 ```bash
-kubectl apply -f secret-pod.yaml
+kubectl apply -f config-pod.yaml
 ```
 
 Now `kubectl exec` into the Pod, verify the variables and mounted volume that expose the newly added `Configmap`.
