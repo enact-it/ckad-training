@@ -2,7 +2,7 @@
 
 ## 01. Create a stateless deployment using nginx
 
-Examine `registry.sh` in this folder. Run it using:
+Examine `deployment.yaml` in this folder. Apply it using:
 
 ```bash
 kubectl apply -f deployment.yaml
